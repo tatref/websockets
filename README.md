@@ -1,5 +1,5 @@
 # Intro
-This is a minimal working example of nginx proxying a websocket app
+This is a minimal working example of a dockerized nginx proxying a websocket app
 
 
 # Setup
