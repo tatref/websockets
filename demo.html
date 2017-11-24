@@ -4,8 +4,17 @@
         <title>WebSocket demo</title>
     </head>
     <body>
+	<!--
+	 nginx listening on localhost:8080
+	 /static must match the location in nginx.conf
+	-->
+        <img src="http://localhost:8080/static/nginx.png">
+
         <script>
-            var ws = new WebSocket("ws://127.0.0.1:8080/foo"),
+            /*
+             /foo must match the location in nginx.conf
+            */
+            var ws = new WebSocket("ws://localhost:8080/foo"),
                 messages = document.createElement('ul');
             ws.onmessage = function (event) {
                 var messages = document.getElementsByTagName('ul')[0],
