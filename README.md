@@ -3,34 +3,43 @@ This is a minimal working example of a dockerized nginx proxying a websocket app
 
 
 # Setup
-- Install docker and create the nginx container
+- Install docker
+- Build the images
 
 ```
-docker create --name nginx -p 8080:8080 -v $PWD/nginx.conf:/etc/nginx/nginx.conf -v $PWD/static:/usr/share/nginx/html/static:ro nginx
+pushd python-ws
+docker build -t python-ws .
+popd
+
+pushd nginx-ws
+docker build -t nginx-ws .
+popd
 ```
 
-- Setup python virtualenv
+- Create network
 
 ```
-virtualenv -p python3.5 venv
-. ./venv/bin/activate
-pip install -r requirements.txt
+docker network create ws
 ```
-
 
 # Running
-- Start the container
+- Start the containers
 
 ```
-docker start nginx
+docker rm -f nginx-ws1 python-ws1 python-ws2
+
+docker run -d --name python-ws1 --hostname python-ws1 --network ws python-ws
+docker run -d --name python-ws2 --hostname python-ws2 --network ws python-ws
+docker run -d --name nginx-ws1  --hostname nginx-ws1  --publish 8080:8080 --network ws nginx-ws
 ```
 
-- Start the websocket backend
+- Open `demo.html` in your browser
 
-```
-./server.py
-```
 
-- Open `websocket.html` in your browser
+
+
+
+
+
 
 

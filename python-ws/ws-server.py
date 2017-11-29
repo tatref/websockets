@@ -4,6 +4,12 @@ import asyncio
 import datetime
 import random
 import websockets
+import socket
+
+
+
+hostname = socket.gethostname()
+
 
 async def time(websocket, path):
   print('Connection from ' + str(websocket.host) + ':' + str(websocket.port) + ', ' + str(websocket.secure))
@@ -14,7 +20,7 @@ async def time(websocket, path):
 
   while True:
     now = datetime.datetime.utcnow().isoformat() + 'Z'
-    await websocket.send(now)
+    await websocket.send(hostname + ': ' + str(now))
     await asyncio.sleep(random.random() * 3)
 
 
