@@ -8,13 +8,13 @@
 	 nginx listening on localhost:8080
 	 /static must match the location in nginx.conf
 	-->
-        <img src="http://localhost:8080/static/nginx.png">
+        <img src="/static/nginx.png">
 
         <script>
             /*
              /foo must match the location in nginx.conf
             */
-            var ws = new WebSocket("ws://localhost:8080/foo"),
+            var ws = new WebSocket("ws://" + location.hostname + ":8080/foo"),
                 messages = document.createElement('ul');
             ws.onmessage = function (event) {
                 var messages = document.getElementsByTagName('ul')[0],

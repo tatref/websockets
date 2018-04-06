@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  nginx-ws:
+    build: ./nginx-ws
+    ports:
+    - "8080:8080"
+    depends_on:
+      - python-ws1
+
+  python-ws1:
+    build: ./python-ws
+  python-ws2:
+    build: ./python-ws
